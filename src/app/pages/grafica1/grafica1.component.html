@@ -1,1 +1,29 @@
-<p>grafica1 works!</p>
+<div class="row">
+  <div class="col-6">
+    <app-grafica-donut [titulo]="titulo1" 
+                       [etiquetas]="labels1"
+                       [data]="data1">
+    </app-grafica-donut>
+  </div>
+  <div class="col-6">
+    <app-grafica-donut titulo="Compras" 
+                       [etiquetas]="labels1"
+                       [data]="data1">
+    </app-grafica-donut>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-6">
+    <app-grafica-donut titulo="Prueba 1" 
+                       [etiquetas]="labels1"
+                       [data]="data1">
+    </app-grafica-donut>
+  </div>
+  <div class="col-6">
+    <app-grafica-donut titulo="Devoluciones" 
+                       [etiquetas]="labels1"
+                       [data]="data1">
+    </app-grafica-donut>
+  </div>
+</div>
