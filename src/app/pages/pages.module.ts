@@ -13,6 +13,7 @@ import { PagesComponent } from './pages/pages.component';
 
 import { SharedModule } from '../shared/shared.module';
 import { ComponentesModule } from '../components/componentes.module';
+import { AccountSettingsComponent } from './account-settings/account-settings.component';
 
 
 
@@ -23,6 +24,7 @@ import { ComponentesModule } from '../components/componentes.module';
     Grafica1Component,
     NoFoundComponent,
     PagesComponent,
+    AccountSettingsComponent,
   ],
   imports: [
     CommonModule,

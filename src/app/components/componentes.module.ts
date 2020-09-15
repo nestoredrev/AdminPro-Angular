@@ -10,7 +10,9 @@ import { GraficaDonutComponent } from './grafica-donut/grafica-donut.component';
 
 
 @NgModule({
-  declarations: [IncrementadorComponent, GraficaDonutComponent],
+  declarations: [
+    IncrementadorComponent, 
+    GraficaDonutComponent],
   imports: [
     CommonModule,
     FormsModule,
