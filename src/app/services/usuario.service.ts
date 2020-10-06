@@ -3,6 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { tap, map, catchError } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
+import { Usuario } from '../models/usuario.model';
+import { environment } from '../../environments/environment';
 
 declare const gapi:any;
 
@@ -11,8 +13,9 @@ declare const gapi:any;
 })
 export class UsuarioService {
 
-  base_url = 'http://localhost:3000/api';
+  public base_url = environment.base_url;
   public auth2: any; 
+  public usuario: Usuario;
 
   constructor(private http: HttpClient,
               private router: Router,
@@ -20,6 +23,13 @@ export class UsuarioService {
                 this.googleInit();
               }
 
+    get token():string {
+      return localStorage.getItem('token') || '';
+    }
+
+    get uid():string {
+      return this.usuario.uid || '';
+    }
 
     googleInit()
     {
@@ -35,7 +45,7 @@ export class UsuarioService {
       }) 
   }
 
-
+  // Crear usuario
   signUp(data)
   {
     const url = `${this.base_url}/usuarios`;
@@ -46,6 +56,24 @@ export class UsuarioService {
                         localStorage.setItem('token', res.token);
                       })
                     )
+  }
+
+  // Editar usuario
+  editarUsuario(dataForm)
+  {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'x-token': this.token
+      })
+    }
+    const url = `${this.base_url}/usuarios/${this.uid}`;
+
+    const data = {
+      ...dataForm,
+      role: this.usuario.role
+    }
+
+    return this.http.put(url, data, httpOptions);
   }
 
   logIn(data)
@@ -72,11 +100,9 @@ export class UsuarioService {
 
   validarToken():Observable<boolean>
   {
-    const token = localStorage.getItem('token') || '';
-
     const httpOptions = {
       headers: new HttpHeaders({
-        'x-token': token
+        'x-token': this.token
       })
     }
 
@@ -84,10 +110,12 @@ export class UsuarioService {
     const url = `${this.base_url}/login/renew`;
     return this.http.get(url, httpOptions)
                     .pipe(
-                      tap( (res:any) => {
+                      map( (res:any) => {
+                        const { uid, nombre, email, img = '', google, role } = res.usuario;
+                        this.usuario = new Usuario(uid, nombre, email, img, google, role);
                         localStorage.setItem('token', res.token);
+                        return true;
                       }),
-                      map( res => true ),
                       catchError( error => of(false) ) // atrapara el error del flujo del pipe y devuelve un nuevo observable como boleano en este caso false
                     )
   }

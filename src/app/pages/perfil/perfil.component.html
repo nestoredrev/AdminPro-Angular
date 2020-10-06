@@ -1,0 +1,154 @@
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Editar perfil</h4>
+                <form class="form p-t-20" [formGroup]="formEditProfile" (ngSubmit)="editarPerfil()"  autocomplete="off">
+                    
+                    <!-- NOMBRE -->
+                    <div class="form-group"
+                         [ngClass]="{'has-danger': formEditProfile.get('nombre').hasError('required') && formEditProfile.get('nombre').touched || 
+                                                   formEditProfile.get('nombre').hasError('minlength') && formEditProfile.get('nombre').touched}">
+                        <label for="exampleInputuname">Enter name</label>
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="ti-user"></i></div>
+                            <input type="text" 
+                                   class="form-control"
+                                   [ngClass]="{'form-control-danger': formEditProfile.get('nombre').hasError('required') && formEditProfile.get('nombre').touched || 
+                                                                      formEditProfile.get('nombre').hasError('minlength') && formEditProfile.get('nombre').touched}"
+                                   id="exampleInputuname" 
+                                   placeholder="Username"
+                                   formControlName="nombre">
+                        </div>
+                        <small class="form-control-feedback"
+                               *ngIf="formEditProfile.get('nombre').hasError('required') && formEditProfile.get('nombre').touched"> 
+                            Campo obligatorio
+                        </small>
+                        <small class="form-control-feedback"
+                                *ngIf="formEditProfile.get('nombre').hasError('minlength') && formEditProfile.get('nombre').touched"> 
+                            Minimo 3 caracteres
+                        </small>
+                    </div>
+
+
+                    <!-- EMAIL -->
+                    <div class="form-group"
+                         [ngClass]="{'has-danger': formEditProfile.get('email').hasError('required') && formEditProfile.get('email').touched || 
+                                                   formEditProfile.get('email').hasError('pattern') && formEditProfile.get('email').touched}">
+                        <label for="exampleInputEmail1"><span class="obligatorio">*</span> Email address</label>
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="ti-email"></i></div>
+                            <input type="email" 
+                                   class="form-control"
+                                   [ngClass]="{'form-control-danger': formEditProfile.get('email').hasError('required') && formEditProfile.get('email').touched || 
+                                                                      formEditProfile.get('email').hasError('pattern') && formEditProfile.get('email').touched}" 
+                                   id="exampleInputEmail1" 
+                                   placeholder="Enter email"
+                                   formControlName="email"
+                                   [readOnly]="usuario.google">
+                        </div>
+                        <small class="form-control-feedback"
+                        *ngIf="formEditProfile.get('email').hasError('required') && formEditProfile.get('email').touched"> 
+                            Campo obligatorio
+                        </small>
+                        <small class="form-control-feedback"
+                                *ngIf="formEditProfile.get('email').hasError('pattern') && formEditProfile.get('email').touched"> 
+                            Email incorrecto
+                        </small>
+                    </div>
+
+
+                    <!-- PASSWORD -->
+                    <div class="form-group"
+                         [ngClass]="{'has-danger': formEditProfile.get('password').hasError('required') && formEditProfile.get('password').touched || 
+                                                   formEditProfile.get('password').hasError('minlength') && formEditProfile.get('password').touched}">
+                        <label for="pwd1"><span class="obligatorio">*</span> Password</label>
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="ti-lock"></i></div>
+                            <input type="password" 
+                                   class="form-control"
+                                   [ngClass]="{'form-control-danger': formEditProfile.get('password').hasError('required') && formEditProfile.get('password').touched || 
+                                                                      formEditProfile.get('password').hasError('minlength') && formEditProfile.get('password').touched}" 
+                                   id="pwd1" 
+                                   placeholder="Enter password"
+                                   formControlName="password">
+                        </div>
+                        <small class="form-control-feedback"
+                                *ngIf="formEditProfile.get('password').hasError('required') && formEditProfile.get('password').touched"> 
+                            Campo obligatorio
+                        </small>
+                        <small class="form-control-feedback"
+                                *ngIf="formEditProfile.get('password').hasError('minlength') && formEditProfile.get('password').touched"> 
+                            Minimo 3 caracteres
+                        </small>
+                    </div>
+
+
+                    <!-- REPEAT PASSWORD -->
+                    <div class="form-group"
+                         [ngClass]="{'has-danger': formEditProfile.get('password2').hasError('noEsIgual') && formEditProfile.get('password2').touched}">
+                        <label for="pwd2"><span class="obligatorio">*</span> Confirm Password</label>
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="ti-lock"></i></div>
+                            <input type="password" 
+                                   class="form-control"
+                                   [ngClass]="{'has-danger': formEditProfile.get('password2').hasError('noEsIgual') && formEditProfile.get('password2').touched}" 
+                                   id="pwd2" 
+                                   placeholder="Repeat password"
+                                   formControlName="password2">
+                        </div>
+                        <small class="form-control-feedback"
+                               *ngIf="formEditProfile.get('password2').hasError('noEsIgual') && formEditProfile.get('password2').touched"> 
+                                Las contraseñas no coinciden
+                        </small>
+                    </div>
+                    <button type="submit" 
+                            class="btn btn-success btn-block waves-effect waves-light m-r-10"
+                            [disabled]="formEditProfile.invalid"
+                            >
+                        <i class="ti-save"></i>
+                        Guardar
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Cambiar Avatar -->
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Foto de perfil</h4>
+                <div class="text-center">
+                    
+                    <img *ngIf="!imgTemp"
+                         [src]="usuario.imagenUrl" 
+                         [alt]="usuario.img"
+                         class="img-avatar">
+
+                    <!-- Previsualizar imagen base64 -->
+                    <img *ngIf="imgTemp"
+                         [src]="imgTemp" 
+                         class="img-avatar">
+                </div>
+                <div class="form-group">
+                    <label for="imageInput">Cargar foto</label>
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="ti-image"></i></div>
+                        <input type="file" 
+                               class="form-control" 
+                               id="imageInput" 
+                               placeholder="profile picture"
+                               (change)="cambiarImagen($event)">
+                    </div>
+                </div>
+                <button type="button" 
+                        class="btn btn-success btn-block waves-effect waves-light m-r-10"
+                        [disabled]="!imagenAsubir"
+                        (click)="subirImagen()">
+                    <i class="ti-save"></i>
+                    Guardar foto
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
