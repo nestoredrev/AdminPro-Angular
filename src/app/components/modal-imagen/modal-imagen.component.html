@@ -1,0 +1,46 @@
+<div id="fondo-modal" class="animated fadeIn fast" 
+     [class.hide]="modalImagenService.ocultarModal">
+    <div id="responsive-modal" 
+        class="modal fade show" 
+        tabindex="-1" 
+        role="dialog" 
+        aria-labelledby="myModalLabel" 
+        style="display: block;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Cargar imagen</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="cerrarModal()">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="text-center">
+                        
+                        <img *ngIf="!imgTemp"
+                        [src]="modalImagenService.img" 
+                        [alt]="modalImagenService.img"
+                        class="img-avatar">
+
+                        <!-- Previsualizar imagen base64 -->
+                        <img *ngIf="imgTemp"
+                             [src]="imgTemp" 
+                             class="img-avatar">
+
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class="ti-image"></i></div>
+                                <input type="file" 
+                                        class="form-control" 
+                                        id="imageInput" 
+                                        placeholder="profile picture"
+                                        (change)="cambiarImagen($event)">
+                            </div>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal" (click)="cerrarModal()">Cerrar</button>
+                    <button type="button" class="btn btn-danger waves-effect waves-light" (click)="subirImagen()">Cargar imagen</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

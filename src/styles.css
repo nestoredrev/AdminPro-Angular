@@ -9,3 +9,18 @@
 .cursor {
     cursor: pointer;
 }
+
+
+.w100{
+    width: 100px;
+}
+
+.w150{
+    width: 150px;
+}
+
+
+.avatar{
+    width: 65px;
+    border-radius: 100%;
+}

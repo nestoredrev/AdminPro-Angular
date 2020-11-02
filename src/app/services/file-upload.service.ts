@@ -33,10 +33,10 @@ export class FileUploadService {
   //   return this.http.post(url, file, httpOptions);
   // }
 
-  async uploadFile (archivo:File, tipo: 'usuarios'|'medicos'|'hospitales')
+  async uploadFile (archivo:File, tipo: 'usuarios'|'medicos'|'hospitales', id:string)
   {
     try {
-      const url = `${this.base_url}/upload/${tipo}/${this.uid}`;
+      const url = `${this.base_url}/upload/${tipo}/${id}`;
       const formData = new FormData();
       formData.append('imagen', archivo);
 

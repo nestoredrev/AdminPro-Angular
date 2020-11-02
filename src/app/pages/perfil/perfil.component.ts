@@ -43,7 +43,7 @@ export class PerfilComponent implements OnInit {
       //const data = this.formEditProfile.getRawValue(); // para obtener el valor del campo disable
 
 
-      this.usuarioService.editarUsuario(data)
+      this.usuarioService.editarPerfilUsuario(data)
           .subscribe( (respuesta:any) => {
 
             this.usuario.nombre = respuesta.usuarioActualizado.nombre;
@@ -99,7 +99,7 @@ export class PerfilComponent implements OnInit {
 
   subirImagen()
   {
-    this.fileUploadService.uploadFile(this.imagenAsubir, 'usuarios')
+    this.fileUploadService.uploadFile(this.imagenAsubir, 'usuarios', this.usuario.uid)
                           .then( (respuesta:any) => {
                             if(respuesta.ok)
                             {

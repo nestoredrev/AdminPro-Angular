@@ -10,25 +10,27 @@ export class Usuario {
         public email:string,
         public img?:string,
         public google?:string,
-        public role?:string
+        public role?:string,
+        public editable?: boolean
     ) {}
 
     // A los metodos get no hay que ponerle las llaves al llamarlos
     get imagenUrl()
     {
-        // Obtener la foto de perfil de los usuarios logeados a traves de Google
-        if( this.img.includes('https') )
-        {
-            return this.img;
-        }
 
-        if(this.img)
+        if(!this.img)
         {
-            return `${base_url}/upload/usuarios/${this.img}`;
+            return `${base_url}/upload/usuarios/no-image`;
         }
         else
         {
-            return `${base_url}/upload/usuarios/no-image`;
+            // Obtener la foto de perfil de los usuarios logeados a traves de Google
+            if( this.img.includes('https') )
+            {
+                return this.img;
+            }
+
+            return `${base_url}/upload/usuarios/${this.img}`;
         }
     }
 }

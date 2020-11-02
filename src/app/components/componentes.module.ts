@@ -6,13 +6,16 @@ import { ChartsModule, ThemeService } from 'ng2-charts';
 
 import { IncrementadorComponent } from './incrementador/incrementador.component';
 import { GraficaDonutComponent } from './grafica-donut/grafica-donut.component';
+import { ModalImagenComponent } from './modal-imagen/modal-imagen.component';
 
 
 
 @NgModule({
   declarations: [
     IncrementadorComponent, 
-    GraficaDonutComponent],
+    GraficaDonutComponent, 
+    ModalImagenComponent
+  ],
   imports: [
     CommonModule,
     FormsModule,
@@ -20,7 +23,8 @@ import { GraficaDonutComponent } from './grafica-donut/grafica-donut.component';
   ],
   exports: [
     IncrementadorComponent,
-    GraficaDonutComponent
+    GraficaDonutComponent,
+    ModalImagenComponent
   ],
   providers:[ThemeService]
 })

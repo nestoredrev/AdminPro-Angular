@@ -31,6 +31,15 @@ export class UsuarioService {
       return this.usuario.uid || '';
     }
 
+    get headers()
+    {
+      return {
+        headers: {
+          'x-token': this.token
+        }
+      }
+    }
+
     googleInit()
     {
       return new Promise( (resolve, reject)  => {
@@ -58,15 +67,15 @@ export class UsuarioService {
                     )
   }
 
-  // Editar usuario
-  editarUsuario(dataForm)
+  // Editar usuario-perfil
+  editarPerfilUsuario(dataForm)
   {
     const httpOptions = {
       headers: new HttpHeaders({
         'x-token': this.token
       })
     }
-    const url = `${this.base_url}/usuarios/${this.uid}`;
+    const url = `${this.base_url}/usuarios/perfil/${this.uid}`;
 
     const data = {
       ...dataForm,
@@ -74,6 +83,51 @@ export class UsuarioService {
     }
 
     return this.http.put(url, data, httpOptions);
+  }
+
+    // Editar usuario tabla
+    editarUsuario(usuario:Usuario)
+    {
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'x-token': this.token
+        })
+      }
+      const url = `${this.base_url}/usuarios/usuario/${usuario.uid}`;
+  
+      return this.http.put(url, usuario, httpOptions);
+    }
+
+  // Obtener usuarios
+  obtenerUsuarios(desde: number = 0)
+  {
+    // const httpOptions = {
+    //   headers: new HttpHeaders({
+    //     'x-token': this.token
+    //   })
+    // }
+    const url = `${this.base_url}/usuarios?desde=${desde}`;
+
+    return this.http.get(url, this.headers)
+                    .pipe(
+                      map( (resp:any) => {
+                        const total = resp.totalRegistros;
+                        const usuarios = resp.usuarios.map( 
+                          user => new Usuario(user.uid, user.nombre, user.email, user.img, user.google, user.role)
+                          )
+                        return {
+                          usuarios,
+                          total
+                        }
+                      })
+                    )
+  }
+
+  // Borrar usuario
+  borrarUsuario(uid:string)
+  {
+    const url = `${this.base_url}/usuarios/${uid}`;
+    return this.http.delete(url, this.headers);
   }
 
   logIn(data)
