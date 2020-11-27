@@ -5,19 +5,30 @@ import { RouterModule } from '@angular/router';
 
 
 
+// Componentes Dashboard
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProgressComponent } from './progress/progress.component';
 import { Grafica1Component } from './grafica1/grafica1.component';
 import { NoFoundComponent } from './no-found/no-found.component';
+import { PromesasComponent } from './promesas/promesas.component';
+import { RxjsComponent } from './rxjs/rxjs.component';
+import { PerfilComponent } from './perfil/perfil.component';
 import { PagesComponent } from './pages/pages.component';
+
 
 import { SharedModule } from '../shared/shared.module';
 import { ComponentesModule } from '../components/componentes.module';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
-import { PromesasComponent } from './promesas/promesas.component';
-import { RxjsComponent } from './rxjs/rxjs.component';
-import { PerfilComponent } from './perfil/perfil.component';
+
+
+// Componentes Mantenimiento
 import { UsuariosComponent } from './mantenimientos/usuarios/usuarios.component';
+import { HospitalesComponent } from './mantenimientos/hospitales/hospitales.component';
+import { MedicosComponent } from './mantenimientos/medicos/medicos.component';
+
+//Pipes 
+import { PipesModule } from "../pipes/pipes.module";
+import { MedicoComponent } from './mantenimientos/medicos/medico/medico.component';
 
 
 
@@ -33,6 +44,9 @@ import { UsuariosComponent } from './mantenimientos/usuarios/usuarios.component'
     RxjsComponent,
     PerfilComponent,
     UsuariosComponent,
+    HospitalesComponent,
+    MedicosComponent,
+    MedicoComponent,
   ],
   imports: [
     CommonModule,
@@ -40,7 +54,8 @@ import { UsuariosComponent } from './mantenimientos/usuarios/usuarios.component'
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    ComponentesModule
+    ComponentesModule,
+    PipesModule
   ],
   exports: [
     DashboardComponent,
