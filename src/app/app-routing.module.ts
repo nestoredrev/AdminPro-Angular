@@ -8,14 +8,14 @@ const ROUTES: Routes = [
   //path: 'dashboard' PageRouting
   //path: 'auth AuthRouting
   { path: '', pathMatch: 'full', redirectTo: '/dashboard' },
-  { path: '**', component: NoFoundComponent }
+  { path: '**', component: NoFoundComponent,  }
   
 ];
 
 @NgModule({
   declarations: [],
   imports: [
-    RouterModule.forRoot( ROUTES ),
+    RouterModule.forRoot(ROUTES, { relativeLinkResolution: 'legacy' }),
     PagesRoutingModule,
     AuthRoutingModule
   ],
