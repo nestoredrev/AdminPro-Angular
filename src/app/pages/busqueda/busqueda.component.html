@@ -1,0 +1,92 @@
+<div class="row animated fadeIn fast">
+    <div class="col-4">
+        <div class="card">
+            <div class="card-body">
+                <h3>Usuarios 💏 </h3>
+                <div class="alert alert-info animated fadeIn fast" *ngIf="usuarios.length == 0">
+                    <p class="mb-0">No hay resultados con el <b>{{ termino }}</b></p>
+                </div>
+                <div *ngIf="usuarios.length > 0" class="table-responsive animated fadeIn fast">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Avatar</th>
+                                <th>Nombre</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let usuario of usuarios; let i = index">
+                                <td>{{ i + 1 }}</td>
+                                <td><img [src]="usuario.img | imagen: 'usuarios'" [alt]="usuario.nombre" class="avatar w75"></td>
+                                <td>{{ usuario.nombre }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="card">
+            <div class="card-body">
+                <h3>Medicos 🚑 </h3>
+                <div class="card-body">
+                    <div class="alert alert-info animated fadeIn fast" *ngIf="medicos.length == 0">
+                        <p class="mb-0">No hay resultados con el <b>{{ termino }}</b></p>
+                    </div>
+                    <div *ngIf="medicos.length > 0" class="table-responsive animated fadeIn fast">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Avatar</th>
+                                    <th>Nombre</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let medico of medicos; let i = index" 
+                                    (click)="abrirMedico( medico )"
+                                    class="cursor">
+                                    <td>{{ i + 1 }}</td>
+                                    <td><img [src]="medico.img | imagen: 'medicos'" [alt]="medico.nombre" class="avatar w75"></td>
+                                    <td>{{ medico.nombre }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="card">
+            <div class="card-body">
+                <h3> Hospitales 🏥 </h3>
+                <div class="card-body">
+                    <div class="alert alert-info animated fadeIn fast" *ngIf="hospitales.length == 0">
+                        <p class="mb-0">No hay resultados con el <b>{{ termino }}</b></p>
+                    </div>
+                    <div *ngIf="hospitales.length > 0" class="table-responsive animated fadeIn fast">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Avatar</th>
+                                    <th>Nombre</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let hospital of hospitales; let i = index">
+                                    <td>{{ i + 1 }}</td>
+                                    <td><img [src]="hospital.img | imagen: 'hospitales'" [alt]="hospital.nombre" class="avatar w75"></td>
+                                    <td>{{ hospital.nombre }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

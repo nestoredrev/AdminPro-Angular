@@ -22,6 +22,8 @@ import { UsuariosComponent } from './mantenimientos/usuarios/usuarios.component'
 import { HospitalesComponent } from './mantenimientos/hospitales/hospitales.component';
 import { MedicosComponent } from './mantenimientos/medicos/medicos.component';
 import { MedicoComponent } from './mantenimientos/medicos/medico/medico.component';
+import { BusquedaComponent } from './busqueda/busqueda.component';
+import { AdminGuard } from '../guards/admin.guard';
 
 const ROUTES: Routes = [
   { 
@@ -30,15 +32,16 @@ const ROUTES: Routes = [
     canActivate:[ AuthGuard ], 
     children: [
       { path: '', component: DashboardComponent, data: {titulo: 'Dashboard'}  },
+      { path: 'account-settings',  component: AccountSettingsComponent, data: {titulo: 'Account Settings'} },
+      { path: 'buscar/:termino',  component: BusquedaComponent, data: {titulo: 'Busqueda global'} },
       { path: 'grafica1',  component: Grafica1Component, data: {titulo: 'Grafica 1'} },
       { path: 'progress',  component: ProgressComponent, data: {titulo: 'Progress'} },
-      { path: 'account-settings',  component: AccountSettingsComponent, data: {titulo: 'Account Settings'} },
       { path: 'promesas',  component: PromesasComponent, data: {titulo: 'Promesas'} },
-      { path: 'rxjs',  component: RxjsComponent, data: {titulo: 'RxJs'} },
       { path: 'perfil',  component: PerfilComponent, data: {titulo: 'Mi Perfil'} },
+      { path: 'rxjs',  component: RxjsComponent, data: {titulo: 'RxJs'} },
 
       //Mantenimientos
-      { path: 'usuarios',  component: UsuariosComponent, data: {titulo: 'Manteniemiento de usuarios'} },
+      { path: 'usuarios',  canActivate: [AdminGuard], component: UsuariosComponent, data: {titulo: 'Manteniemiento de usuarios'} },
       { path: 'hospitales', component: HospitalesComponent, data: {titulo: 'Mantenimiento de hospitles'} },
       { path: 'medicos', component: MedicosComponent, data: {titulo: 'Mantenimiento de medicos'} },
       { path: 'medico/:id', component: MedicoComponent, data: {titulo: 'Mi medico'} },

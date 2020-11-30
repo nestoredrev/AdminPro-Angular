@@ -31,6 +31,10 @@ export class UsuarioService {
       return this.usuario.uid || '';
     }
 
+    get role():string {
+      return this.usuario.role;
+    }
+
     get headers()
     {
       return {
@@ -38,6 +42,11 @@ export class UsuarioService {
           'x-token': this.token
         }
       }
+    }
+
+    guardarLocalStorage (token: string, menu: any) {
+      localStorage.setItem('token', token);
+      localStorage.setItem('menu', JSON.stringify(menu));
     }
 
     googleInit()
@@ -62,7 +71,7 @@ export class UsuarioService {
                     .pipe(
                       tap((res:any) => {
                         // tap es para ver los datos de la peticion
-                        localStorage.setItem('token', res.token);
+                        this.guardarLocalStorage( res.token, res.menu );
                       })
                     )
   }
@@ -93,7 +102,7 @@ export class UsuarioService {
           'x-token': this.token
         })
       }
-      const url = `${this.base_url}/usuarios/usuario/${usuario.uid}`;
+      const url = `${this.base_url}/usuarios/${usuario.uid}`;
   
       return this.http.put(url, usuario, httpOptions);
     }
@@ -136,7 +145,7 @@ export class UsuarioService {
     return this.http.post(url, data)
                     .pipe(
                       tap((res:any) => {
-                        localStorage.setItem('token', res.token);
+                        this.guardarLocalStorage( res.token, res.menu );
                       })
                     )
   }
@@ -147,7 +156,7 @@ export class UsuarioService {
     return this.http.post(url, {token})
                     .pipe(
                       tap((res:any) => {
-                        localStorage.setItem('token', res.token);
+                        this.guardarLocalStorage( res.token, res.menu );
                       })
                     )
   }
@@ -167,7 +176,7 @@ export class UsuarioService {
                       map( (res:any) => {
                         const { uid, nombre, email, img = '', google, role } = res.usuario;
                         this.usuario = new Usuario(uid, nombre, email, img, google, role);
-                        localStorage.setItem('token', res.token);
+                        this.guardarLocalStorage( res.token, res.menu );
                         return true;
                       }),
                       catchError( error => of(false) ) // atrapara el error del flujo del pipe y devuelve un nuevo observable como boleano en este caso false
@@ -178,6 +187,7 @@ export class UsuarioService {
   logout()
   {
     localStorage.removeItem('token');
+    localStorage.removeItem('menu');
 
     this.auth2.signOut().then( () => {
       this.ngZone.run(() => { // Ngzone es para ejecutar codigo de angular fuera de su ambito para no perder el ciclo de vida

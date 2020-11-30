@@ -42,8 +42,14 @@ export class BusquedasService {
     return resultados;
   }
 
-  buscar(coleccion:string, texto:string)
-  {
+
+  busquedaGlobal( termino:string ) {
+    const url = `${this.base_url}/todo/${termino}`;
+    return this.http.get(url, this.headers);
+  }
+
+
+  buscar(coleccion:string, texto:string) {
     const url = `${this.base_url}/todo/collection/${coleccion}/${texto}`;
     return this.http.get(url, this.headers)
                     .pipe(
