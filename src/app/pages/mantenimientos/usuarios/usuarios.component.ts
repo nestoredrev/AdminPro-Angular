@@ -25,7 +25,7 @@ export class UsuariosComponent implements OnInit, OnDestroy {
   public cargando: boolean = true;
   public imgSubs: Subscription;
 
-  constructor(private usuarioService: UsuarioService,
+  constructor(public usuarioService: UsuarioService,
               private busquedasService: BusquedasService,
               private modalImagenService: ModalImagenService) {}
 
